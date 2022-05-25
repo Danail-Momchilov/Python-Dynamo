@@ -35,7 +35,7 @@ for i, elem in enumerate(mainlist):
 		partnerwidth = partner.LookupParameter('Element Opening Width').AsValueString()
 		partnerdepth = partner.LookupParameter('Element Opening Depth').AsValueString()
 		
-		if partnerwidth == width and partnerdepth == depth and elemX == partnerX and elemY == partnerY:
+		if partnerwidth == width and partnerdepth == depth and elemX == partnerX and elemY == partnerY and partner.Id != elem.Id:
 			templist.append(True)
 		else:
 			templist.append(False)
