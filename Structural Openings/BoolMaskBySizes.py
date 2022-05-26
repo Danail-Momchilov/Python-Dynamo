@@ -15,15 +15,14 @@ def locationY(x):
 	return round(x.Location.Point.Y, 0)
 
 outlist = []
-locationlist = []
 
 mainlist = UnwrapElement(IN[0])
 partnerslist = UnwrapElement(IN[1])
 
 for i, elem in enumerate(mainlist):
 
-	width = elem.LookupParameter('Element Opening Width').AsDouble()
-	depth = elem.LookupParameter('Element Opening Depth').AsDouble()
+	width = elem.LookupParameter('Element Opening Width').AsDouble()*30.48
+	depth = elem.LookupParameter('Element Opening Depth').AsDouble()*30.48
 	elemX = locationX(elem)
 	elemY = locationY(elem)
 	
@@ -33,8 +32,8 @@ for i, elem in enumerate(mainlist):
 	
 		partnerX = locationX(partner)
 		partnerY = locationY(partner)
-		partnerwidth = partner.LookupParameter('Element Opening Width').AsDouble()
-		partnerdepth = partner.LookupParameter('Element Opening Depth').AsDouble()
+		partnerwidth = partner.LookupParameter('Element Opening Width').AsDouble()*30.48
+		partnerdepth = partner.LookupParameter('Element Opening Depth').AsDouble()*30.48
 		difW = abs(partnerwidth - width)
 		difD = abs(partnerdepth - depth)
 		
