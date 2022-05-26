@@ -1,6 +1,7 @@
 #Created by Danail Momchilov
 
 import sys
+import math
 import clr
 clr.AddReference('ProtoGeometry')
 from Autodesk.DesignScript.Geometry import *
@@ -8,10 +9,10 @@ clr.AddReference('RevitAPI')
 from Autodesk.Revit.DB import FamilyInstance, Parameter, LocationPoint
 
 def locationX(x):
-	return x.Location.Point.X
+	return round(x.Location.Point.X, 0)
 	
 def locationY(x):
-	return x.Location.Point.Y
+	return round(x.Location.Point.Y, 0)
 
 outlist = []
 locationlist = []
@@ -21,8 +22,8 @@ partnerslist = UnwrapElement(IN[1])
 
 for i, elem in enumerate(mainlist):
 
-	width = elem.LookupParameter('Element Opening Width').AsValueString()
-	depth = elem.LookupParameter('Element Opening Depth').AsValueString()
+	width = elem.LookupParameter('Element Opening Width').AsDouble()
+	depth = elem.LookupParameter('Element Opening Depth').AsDouble()
 	elemX = locationX(elem)
 	elemY = locationY(elem)
 	
@@ -32,10 +33,12 @@ for i, elem in enumerate(mainlist):
 	
 		partnerX = locationX(partner)
 		partnerY = locationY(partner)
-		partnerwidth = partner.LookupParameter('Element Opening Width').AsValueString()
-		partnerdepth = partner.LookupParameter('Element Opening Depth').AsValueString()
+		partnerwidth = partner.LookupParameter('Element Opening Width').AsDouble()
+		partnerdepth = partner.LookupParameter('Element Opening Depth').AsDouble()
+		difW = abs(partnerwidth - width)
+		difD = abs(partnerdepth - depth)
 		
-		if partnerwidth == width and partnerdepth == depth and elemX == partnerX and elemY == partnerY and partner.Id != elem.Id:
+		if difW <= 1.5 and difD <= 1.5 and elemX == partnerX and elemY == partnerY and elem.Id != partner.Id:
 			templist.append(True)
 		else:
 			templist.append(False)
