@@ -4,4 +4,4 @@
 
 ![d72137af2e2f535bc4a8051f9fcf468d45b999ea](https://user-images.githubusercontent.com/46314846/175537217-7c1dd7b7-d0d3-4a02-8689-0c566281b27b.png)
 
-> the issue is solved only be setting the SpatialElementBoundaryLocation to 'Center' - simple, but effective
+> the issue is solved by setting the SpatialElementBoundaryLocation to 'Center' - simple, but effective
