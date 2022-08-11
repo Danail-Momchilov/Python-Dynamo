@@ -10,7 +10,7 @@ BoolMaskSizes
 
 <br />
 IdentifyPartnerChanges
-
+<br />
 > This node takes as arguments 'partnering' openings and their original ones
 
 > It checks wether or not any changes were made to the groups of elements and filters only those with changed position and / or sizes
