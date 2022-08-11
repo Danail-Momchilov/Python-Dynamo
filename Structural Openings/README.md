@@ -1,4 +1,4 @@
-BOOLMASKSIZES
+BoolMaskSizes
 
 > This node is used to group and filter structural openings, located at the same X and Y coordinates, but with a different Z component and also having identical sizes
 
@@ -7,3 +7,6 @@ BOOLMASKSIZES
 > Being identified in this way, they can all get the ID of the 'parent' element (typically the one, located at the lowest point), written in a locked parameter
 
 > Once done, all elements can be automatically updated, according to the new location and size of the 'parent'
+
+
+IdentifyPartnerChanges
