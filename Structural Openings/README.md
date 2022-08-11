@@ -8,7 +8,7 @@ BoolMaskSizes
 
 > Once done, all elements can be automatically updated, according to the new location and size of the 'parent'
 
-<br />
+
 IdentifyPartnerChanges
 
 > This node takes as arguments 'partnering' openings and their original ones
