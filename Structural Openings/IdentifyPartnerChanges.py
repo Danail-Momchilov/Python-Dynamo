@@ -29,6 +29,8 @@ outlistMain = []
 outlistWidth = []
 outlistDepth = []
 
+testlist = []
+
 
 for i, opening in enumerate(mainOp):
 
@@ -49,7 +51,7 @@ for i, opening in enumerate(mainOp):
 		difW = abs(PWidth - Width)
 		difD = abs(PDepth - Depth)
 		
-		if difW <= 1.5 and difD <= 1.5 and PlocX == locX and PlocY == locY and opening.Id != partner.Id:
+		if difW >= 1.5 or difD >= 1.5 or PlocX != locX or PlocY != locY: #and opening.Id != partner.Id:
 			templist.append(partner)
 			if opening not in outlistMain:
 				outlistMain.append(opening)
@@ -60,4 +62,4 @@ for i, opening in enumerate(mainOp):
 		outlistPartners.append(templist)
 
 
-OUT = outlistPartners, outlistMain, outlistWidth, outlistDepth
+OUT = outlistPartners, outlistMain, outlistWidth, outlistDepth, testlist
