@@ -4,4 +4,4 @@
 
 > it either hides or unhides those elements in the specified views
 
-> its code is kept simple and clean, so that it works much faster than any other node available for that purpose, either from a package or from the OOTB
+> its code is kept simple and clean, so that it works much faster than any other node available for that purpose, either from a package or from the OOTB (traditionally, the OOTB are the least effective ones)
