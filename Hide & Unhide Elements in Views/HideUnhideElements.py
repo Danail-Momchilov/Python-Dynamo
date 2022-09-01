@@ -53,3 +53,4 @@ if IN[0] != []:
 	OUT = "Specified Text Notes were successfully unhidden from all views!"
 else:
 	OUT = None
+	
