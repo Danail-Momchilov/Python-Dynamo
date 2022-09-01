@@ -43,6 +43,8 @@ TransactionManager.Instance.EnsureInTransaction(doc)
 
 for i, view in enumerate(views):
 	view.UnhideElements(elementIds[i])
+
+# with the only reason when you want to hide elements being thet you need to use view.HideElements(elementIds[i]) instead
 	
 TransactionManager.Instance.TransactionTaskDone()
 
