@@ -46,14 +46,6 @@ for elem in loadedTags:
 
 TransactionManager.Instance.ForceCloseTransaction()
 
-
-
-
-test = []
-
-
-
-
 with Transaction(doc, "Update Detail Item's info") as t:
 	t.Start()
 
@@ -99,7 +91,7 @@ with Transaction(doc, "Update Detail Item's info") as t:
 			item.LookupParameter("Element pcs. 5").Set(modelElements[i].LookupParameter("Element pcs. 5").AsInteger())
 			item.LookupParameter("Q_HC").Set(modelElements[i].LookupParameter("Q_HC").AsDouble())
 			tagTypeId = tagsDict["IPA-TAG-DI-Lira"]
-			translation = XYZ(item.LookupParameter("Width_HC").AsDouble() - 0.75, item.LookupParameter("Height_HC").AsDouble() + 1.5, 0)
+			translation = XYZ(item.LookupParameter("Width_HC").AsDouble() / 2, item.LookupParameter("Height_HC").AsDouble() + 1.5, 0)
 			
 		elif item.Symbol.FamilyName == "IPA-DI-Radiator":
 			item.LookupParameter("Height_HC").Set(modelElements[i].Symbol.LookupParameter("Height_HC").AsDouble())
@@ -113,15 +105,14 @@ with Transaction(doc, "Update Detail Item's info") as t:
 					if conn.MEPSystem:
 						item.LookupParameter("termo ventil up").Set(1)
 			tagTypeId = tagsDict["IPA-TAG-DI-Rad"]
-			translation = XYZ(item.LookupParameter("Width_HC").AsDouble() - 0.9, item.LookupParameter("Height_HC").AsDouble() + 1.5, 0)
-			test.append(item.LookupParameter("Height_HC"))
+			translation = XYZ(item.LookupParameter("Width_HC").AsDouble() / 2, item.LookupParameter("Height_HC").AsDouble() + 1.5, 0)
 		
 		elif item.Symbol.FamilyName == "IPA-DI-Panel Radiator":
 			item.LookupParameter("Width_HC").Set(modelElements[i].LookupParameter("Length_HC").AsDouble())
 			item.LookupParameter("Height_HC").Set(modelElements[i].Symbol.LookupParameter("Height_HC").AsDouble())
 			item.LookupParameter("Q_HC").Set(modelElements[i].LookupParameter("Q_HC").AsDouble())
 			tagTypeId = tagsDict["IPA-TAG-DI-Panel radiator"]
-			translation = XYZ(item.LookupParameter("Width_HC").AsDouble() / 2, item.LookupParameter("Height_HC").AsDouble() + 1, 0)
+			translation = XYZ(item.LookupParameter("Width_HC").AsDouble() / 2, item.LookupParameter("Height_HC").AsDouble() + 1.5, 0)
 			
 		# tag the element
 		tag = IndependentTag.Create(doc, doc.ActiveView.Id, reference, False, TagMode.TM_ADDBY_CATEGORY, tagOrientation, itemLocation)
@@ -130,4 +121,4 @@ with Transaction(doc, "Update Detail Item's info") as t:
 			
 	t.Commit()
 
-OUT = str(i) + " Detail Items' parameters were successfully updated in accordance with their original model elements!", test
+OUT = str(i) + " Detail Items' parameters were successfully updated in accordance with their original model elements!"
