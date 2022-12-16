@@ -7,8 +7,8 @@
 
 > the final result is a scheme, created from 2D elements, representing the actual heating, divided by entrance, level, left / right position and even order of connection to the heatmeter
 
-![image](https://user-images.githubusercontent.com/46314846/203804162-6b966ae2-cc47-4f26-a6a9-baa1ae63d270.png)
+![image](https://user-images.githubusercontent.com/46314846/208098408-ff9d8a33-ea56-4b9a-a2dc-8fd802883de4.png)
 
 > all elements even have their actual sizes and parameters set
 
-![image](https://user-images.githubusercontent.com/46314846/203804319-279906d7-2585-47f0-83a2-d01e2a7a5dea.png)
+![image](https://user-images.githubusercontent.com/46314846/208098739-9417cbab-21f8-4eba-aae0-76001923568d.png)
