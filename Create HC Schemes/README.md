@@ -9,6 +9,6 @@
 
 ![image](https://user-images.githubusercontent.com/46314846/208098408-ff9d8a33-ea56-4b9a-a2dc-8fd802883de4.png)
 
-> all elements even have their actual sizes and parameters set
+> all elements even have their actual sizes and parameters set and get a specific tag, depending on their type
 
 ![image](https://user-images.githubusercontent.com/46314846/208098739-9417cbab-21f8-4eba-aae0-76001923568d.png)
