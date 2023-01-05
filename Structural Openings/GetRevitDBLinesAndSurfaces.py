@@ -33,7 +33,7 @@ uidoc = uiapp.ActiveUIDocument
 
 opt = Options()
 
-outlist = []
+outlist1, outlist2 = [], []
 
 floors = UnwrapElement(IN[0])
 
@@ -45,8 +45,9 @@ for floor in floors:
 		for face in faces:
 			try:
 				if face.FaceNormal.Z == 1:
-					outlist.append(face.GetEdgesAsCurveLoops())
+					outlist1.append(face)
+					outlist2.append(face.GetEdgesAsCurveLoops())
 			except:
 				pass
 	
-OUT = outlist
+OUT = outlist1, outlist2
