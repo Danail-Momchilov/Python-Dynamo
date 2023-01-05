@@ -23,3 +23,11 @@ IdentifyPartnerChanges
 ![image](https://user-images.githubusercontent.com/46314846/184125802-50336896-3dcf-40dd-bfd1-8bbdfb4fda73.png)
 
 > this simple operation optimises performance significantly for large - scale projects, when thousands of elements need to be aligned
+
+GetRevitDBLines
+
+> this node takes a floor or a list of floors as an input, finds the uppermost horizontal face of the floor and extracts all curveloops from it as native Revit elements 
+
+> by doing so, one could easily use the faces to place face based families, even for large floor elements, that Dynamo would normally have troubles to process
+
+> wrapped Curves could also be used in order to rebuild the face within Dynamo and use it for other geometric operations
