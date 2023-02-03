@@ -1,3 +1,4 @@
+
 import sys
 import clr
 clr.AddReference('ProtoGeometry')
@@ -5,13 +6,13 @@ from Autodesk.DesignScript.Geometry import *
 
 clr.AddReference('RevitAPI')
 import Autodesk
-from Autodesk.Revit.DB import Point, Line, XYZ, CurveLoop, GeometryCreationUtilities, Options, BooleanOperationsUtils, BooleanOperationsType
+from Autodesk.Revit.DB import Point, Line, XYZ, CurveLoop, GeometryCreationUtilities, Options, BooleanOperationsUtils, BooleanOperationsType, PlanarFace, UV, BuiltInParameter
 
 clr.AddReference('RevitNodes')
 import Revit
 clr.ImportExtensions(Revit.GeometryConversion)
 
-def GetElementSolids(element,opt):
+def GetElementSolids(element, opt):
     elemSlds = []
     for geoEle in element.get_Geometry(opt):
         if geoEle.__class__ == Autodesk.Revit.DB.GeometryInstance:
@@ -23,7 +24,19 @@ def GetElementSolids(element,opt):
                 if geoObj.Volume > 0: elemSlds.append(geoObj)
     return elemSlds
 
-outlist, floorSolids, bboxSolids = [], [], []
+def GetUppermostFace(solid):
+	faces = []
+	for face in solid.Faces:
+		pt = UV(0.5, 0.5)
+		normal = face.ComputeNormal(pt)
+		if normal.Z == 1:
+			faces.append(face)
+	if faces.Count == 1:
+		return faces[0]
+	else:
+		return faces
+
+intersectFaces, floorSolids, bboxSolids, floorFaces, solidHeights = [], [], [], [], []
 
 opt = Options()
 
@@ -53,18 +66,22 @@ for i, minPt in enumerate(minPts):
 	bboxSolids.Add(GeometryCreationUtilities.CreateExtrusionGeometry(loopList, XYZ.BasisZ, height))
 	
 for floor in floors:
-	floorSolids.append(GetElementSolids(floor, opt)[0])
-	
-intersectionSet = ( [ [ BooleanOperationsUtils.ExecuteBooleanOperation(s1, s2, BooleanOperationsType.Intersect) for s1 in floorSolids ] for s2 in bboxSolids ] )
-
-for list in intersectionSet:
 	templist = []
-	for solid in list:
-		if solid.Volume > 0:
-			try:
-				templist.append(solid.ToProtoType())
-			except:
-				pass
-	outlist.append(templist)
+	flSolid = GetElementSolids(floor, opt)[0]
+	floorSolids.append(flSolid)
+	floorFaces.append(GetUppermostFace(flSolid))
+	solidHeights.append(round(floor.get_Parameter(BuiltInParameter.STRUCTURAL_FLOOR_CORE_THICKNESS).AsDouble()*30.48, 2))
+	
+for flSolid in floorSolids:
+	templist = []
+	#tempintersects = []
+	for bbSolid in bboxSolids:
+		intersect = [BooleanOperationsUtils.ExecuteBooleanOperation(flSolid, bbSolid, BooleanOperationsType.Intersect)][0]
+		if intersect.Volume > 0:
+			#tempintersects.append(intersect.ToProtoType())
+			templist.append(GetUppermostFace(intersect).ToProtoType())
+	#intersectSolids.append(tempintersects)
+	intersectFaces.append(templist)
 
-OUT = outlist
+OUT = floorFaces, intersectFaces, solidHeights
+
