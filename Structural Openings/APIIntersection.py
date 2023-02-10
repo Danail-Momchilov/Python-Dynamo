@@ -6,7 +6,7 @@ from Autodesk.DesignScript.Geometry import *
 
 clr.AddReference('RevitAPI')
 import Autodesk
-from Autodesk.Revit.DB import Point, Line, XYZ, CurveLoop, GeometryCreationUtilities, Options, BooleanOperationsUtils, BooleanOperationsType, PlanarFace, UV, BuiltInParameter
+from Autodesk.Revit.DB import Point, Line, XYZ, CurveLoop, GeometryCreationUtilities, Options, BooleanOperationsUtils, BooleanOperationsType, PlanarFace, UV, BuiltInParameter, Reference
 
 clr.AddReference('RevitNodes')
 import Revit
@@ -39,6 +39,7 @@ def GetUppermostFace(solid):
 intersectFaces, floorSolids, bboxSolids, floorFaces, solidHeights = [], [], [], [], []
 
 opt = Options()
+opt.ComputeReferences = True
 
 minPts = UnwrapElement(IN[0])
 maxPts = UnwrapElement(IN[1])
@@ -66,7 +67,7 @@ for i, minPt in enumerate(minPts):
 	bboxSolids.Add(GeometryCreationUtilities.CreateExtrusionGeometry(loopList, XYZ.BasisZ, height))
 	
 for floor in floors:
-	templist = []
+	templist = []	
 	flSolid = GetElementSolids(floor, opt)[0]
 	floorSolids.append(flSolid)
 	floorFaces.append(GetUppermostFace(flSolid))
@@ -74,13 +75,10 @@ for floor in floors:
 	
 for flSolid in floorSolids:
 	templist = []
-	#tempintersects = []
 	for bbSolid in bboxSolids:
 		intersect = [BooleanOperationsUtils.ExecuteBooleanOperation(flSolid, bbSolid, BooleanOperationsType.Intersect)][0]
 		if intersect.Volume > 0:
-			#tempintersects.append(intersect.ToProtoType())
 			templist.append(GetUppermostFace(intersect).ToProtoType())
-	#intersectSolids.append(tempintersects)
 	intersectFaces.append(templist)
 
 OUT = floorFaces, intersectFaces, solidHeights
