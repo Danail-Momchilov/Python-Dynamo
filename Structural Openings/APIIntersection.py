@@ -82,4 +82,3 @@ for flSolid in floorSolids:
 	intersectFaces.append(templist)
 
 OUT = floorFaces, intersectFaces, solidHeights
-
