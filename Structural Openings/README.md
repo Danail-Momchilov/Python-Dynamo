@@ -18,6 +18,25 @@ IntersectSurfaces
 
 ![image](https://user-images.githubusercontent.com/46314846/219321103-abb8ff49-7b50-4d13-a059-2938c95632c9.png)
 
+PlaceOpenings
+
+> this node is simply placing structural opening families, based on its inputs: floors' planar faces, openings location points, sizes and thickness
+
+> the final result is all openings, placed in the model correctly and most importantly, fast, due to the operation being done completely in the API
+
+![image](https://user-images.githubusercontent.com/46314846/219324252-f250ed2f-9a99-4b27-801f-c1f71fb221fa.png)
+
+Overview
+
+> these lines of code were inspired by the numerous problems, encountered by working with the same workflow, but done entirely in Dynamo
+
+> it was quite often that the graph was failing, due to problems with geometry conversion, other than that it was extremely slow and time consiming
+
+> after introducing those Python scripts, it works without making any mistakes and also extremely fast. Identical operation that used to take up to 10 minutes with the Dynamo graph, now takes around 8 seconds for all tasks to be completed in the API
+
+![image](https://user-images.githubusercontent.com/46314846/219325311-73fbdeca-9c7c-4483-a723-41d0f222f625.png)
+
+
 
 
 
