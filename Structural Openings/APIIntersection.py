@@ -36,14 +36,18 @@ def GetUppermostFace(solid):
 	else:
 		return faces
 
-intersectFaces, floorSolids, bboxSolids, floorFaces, solidHeights = [], [], [], [], []
+intersectFaces, floorSolids, bboxSolids, floorFaces, solidHeights, floorsOut = [], [], [], [], [], []
 
 opt = Options()
 opt.ComputeReferences = True
 
 minPts = UnwrapElement(IN[0])
 maxPts = UnwrapElement(IN[1])
-floors = UnwrapElement(IN[2])
+
+if isinstance(IN[2], list):
+	floors = UnwrapElement(IN[2])
+else:
+	floors = [UnwrapElement(IN[2])]
 
 for i, minPt in enumerate(minPts):
 	maxPt = maxPts[i]
@@ -67,18 +71,19 @@ for i, minPt in enumerate(minPts):
 	bboxSolids.Add(GeometryCreationUtilities.CreateExtrusionGeometry(loopList, XYZ.BasisZ, height))
 	
 for floor in floors:
-	templist = []	
 	flSolid = GetElementSolids(floor, opt)[0]
-	floorSolids.append(flSolid)
-	floorFaces.append(GetUppermostFace(flSolid))
-	solidHeights.append(round(floor.get_Parameter(BuiltInParameter.STRUCTURAL_FLOOR_CORE_THICKNESS).AsDouble()*30.48, 2))
-	
-for flSolid in floorSolids:
 	templist = []
 	for bbSolid in bboxSolids:
 		intersect = [BooleanOperationsUtils.ExecuteBooleanOperation(flSolid, bbSolid, BooleanOperationsType.Intersect)][0]
 		if intersect.Volume > 0:
-			templist.append(GetUppermostFace(intersect).ToProtoType())
-	intersectFaces.append(templist)
+			try:
+				templist.append(GetUppermostFace(intersect).ToProtoType())
+			except:
+				pass
+	if templist:
+		floorsOut.append(floor)
+		floorFaces.append(GetUppermostFace(flSolid))
+		solidHeights.append(round(floor.get_Parameter(BuiltInParameter.STRUCTURAL_FLOOR_CORE_THICKNESS).AsDouble()*30.48, 2))
+		intersectFaces.append(templist)
 
-OUT = floorFaces, intersectFaces, solidHeights
+OUT = floorFaces, intersectFaces, solidHeights, floorsOut
