@@ -8,4 +8,8 @@ APIIntersections
 
 > it returns uppermost planar faces of all intersections found, as well as their corresponding floor faces
 
+![image](https://user-images.githubusercontent.com/46314846/219318800-bbb1da43-f34a-4e44-aed9-ef54d4c08e5b.png)
+
+
+
 
