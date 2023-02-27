@@ -34,6 +34,12 @@ familySymbol = UnwrapElement(IN[1])
 refVector = XYZ(1, 0, 0)
 outlist = []
 
+if not familySymbol.IsActive:
+	TransactionManager.Instance.EnsureInTransaction(doc)
+	familySymbol.Activate()
+	doc.Regenerate()
+	TransactionManager.Instance.TransactionTaskDone()
+
 TransactionManager.Instance.EnsureInTransaction(doc)
 
 for i, plFace in enumerate(IN[0]):
