@@ -36,6 +36,18 @@ def GetUppermostFace(solid):
 	else:
 		return faces
 
+def GetUppermostFaceFromList(facesList):
+	zList = []
+	for face in facesList:
+		zList.append(face.Origin.BasisZ)
+	return facesList[zList.index(max(zList))]
+	
+def GetLargestFace(facesList):
+	areas = []
+	for face in facesList:
+		areas.append(face.Area)
+	return facesList[areas.index(max(areas))]
+
 intersectFaces, floorSolids, bboxSolids, floorFaces, solidHeights, floorsOut = [], [], [], [], [], []
 
 opt = Options()
@@ -76,13 +88,18 @@ for floor in floors:
 	for bbSolid in bboxSolids:
 		intersect = [BooleanOperationsUtils.ExecuteBooleanOperation(flSolid, bbSolid, BooleanOperationsType.Intersect)][0]
 		if intersect.Volume > 0:
-			try:
-				templist.append(GetUppermostFace(intersect).ToProtoType())
-			except:
-				pass
+			tempFace = GetUppermostFace(intersect)
+			if isinstance(tempFace, list):
+				templist.append(GetLargestFace(tempFace).ToProtoType())
+			else:
+				templist.append(tempFace.ToProtoType())
 	if templist:
 		floorsOut.append(floor)
-		floorFaces.append(GetUppermostFace(flSolid))
+		faceTest = (GetUppermostFace(flSolid))
+		if isinstance(faceTest, list):
+			floorFaces.append(GetUppermostFaceFromList(faceTest))
+		else:
+			floorFaces.append(faceTest)
 		solidHeights.append(round(floor.get_Parameter(BuiltInParameter.STRUCTURAL_FLOOR_CORE_THICKNESS).AsDouble()*30.48, 2))
 		intersectFaces.append(templist)
 
