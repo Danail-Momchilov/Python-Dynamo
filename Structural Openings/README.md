@@ -12,9 +12,9 @@ APIIntersections
 
 IntersectSurfaces
 
-> this nodes takes surfaces as an input and returnes indices of all openings that should be group
+> this node takes surfaces as an input and returnes indices of all openings that should be grouped
 
-> those are usually surfaces, taht are either intersecting partially or completely (e.g in the second case one of them is completely within the other)
+> those are usually surfaces, that are either intersecting partially or completely (e.g in the second case one of them is completely within the other)
 
 ![image](https://user-images.githubusercontent.com/46314846/219321103-abb8ff49-7b50-4d13-a059-2938c95632c9.png)
 
