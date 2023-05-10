@@ -22,7 +22,7 @@ PlaceOpenings
 
 > this node is simply placing structural opening families, based on its inputs: floors' planar faces, openings location points, sizes and thickness
 
-> the final result is all openings, placed in the model correctly and most importantly, fast, due to the operation being done completely in the API
+> the final result is all openings, placed in the model correctly and most importantly, quickly, due to the operation being done completely in the API
 
 ![image](https://user-images.githubusercontent.com/46314846/219324252-f250ed2f-9a99-4b27-801f-c1f71fb221fa.png)
 
