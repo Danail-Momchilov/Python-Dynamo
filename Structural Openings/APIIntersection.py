@@ -100,7 +100,7 @@ for floor in floors:
 			floorFaces.append(GetUppermostFaceFromList(faceTest))
 		else:
 			floorFaces.append(faceTest)
-		solidHeights.append(round(floor.get_Parameter(BuiltInParameter.STRUCTURAL_FLOOR_CORE_THICKNESS).AsDouble()*30.48, 2))
+		solidHeights.append(round(floor.get_Parameter(BuiltInParameter.FLOOR_ATTR_THICKNESS_PARAM).AsDouble()*30.48, 2))
 		intersectFaces.append(templist)
 
 OUT = floorFaces, intersectFaces, solidHeights, floorsOut
