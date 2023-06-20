@@ -29,7 +29,7 @@ def GetUppermostFace(solid):
 	for face in solid.Faces:
 		pt = UV(0.5, 0.5)
 		normal = face.ComputeNormal(pt)
-		if normal.Z == 1:
+		if int(normal.Z) == 1:
 			faces.append(face)
 	if faces.Count == 1:
 		return faces[0]
@@ -100,6 +100,7 @@ for floor in floors:
 			floorFaces.append(GetUppermostFaceFromList(faceTest))
 		else:
 			floorFaces.append(faceTest)
+			
 		solidHeights.append(round(floor.get_Parameter(BuiltInParameter.FLOOR_ATTR_THICKNESS_PARAM).AsDouble()*30.48, 2))
 		intersectFaces.append(templist)
 
